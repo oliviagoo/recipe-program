@@ -1,15 +1,28 @@
 #recipe alteration program
 #olivia goodman 3/6/20
-#version 2 - this version will alter the recipe's amounts based on the scale factor
+#version 3 - this version will replace the hard-coded ingredients and units
+
+def input_menu():
+    while True:
+        mode = input("Press I to input an ingredient, U for a unit, or Q to quit: ").lower().strip()
+        if mode == "i":
+            ingredients.append(input("Please enter the ingredient: "))
+        elif mode == "u":
+            units.append(input("Please enter the unit: "))
+        else:
+            break
+
+#main routine
 
 #hard coded recipe
 print("Pancake recipe courtesy of Chelsea Sugar (https://www.chelsea.co.nz/browse-recipes/sunday-pancake-recipe/)")
-ingredients = ["flour", "white sugar", "grated lemon zest", "milk", "egg", "butter"]
-units = ["cup", "tablespon", "teaspoon", "cup", "n/a", "gram"]
+ingredients = []
+units = []
 amounts = [1, 2, 0.5, 1, 1, 30]
 new_amounts = []
 old_servings = 3
 
+input_menu()
 
 #input - servings amount
 print("The current recipe serves {} people.".format(old_servings))
@@ -26,3 +39,4 @@ for value in amounts:
 #outputting new recipe
 for i in range(len(ingredients)):
     print("{:.2f} {}s of {}".format(new_amounts[i], units[i], ingredients[i]))
+
