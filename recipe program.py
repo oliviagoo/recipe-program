@@ -1,16 +1,15 @@
 #recipe alteration program
 #olivia goodman 3/6/20
-#version 3 - this version will replace the hard-coded ingredients and units
+#version 4 - this version will replace the hard-coded ingredients and units, with a better input method
 
-def input_menu():
+def recipe_input():
     while True:
-        mode = input("Press I to input an ingredient, U for a unit, or Q to quit: ").lower().strip()
-        if mode == "i":
-            ingredients.append(input("Please enter the ingredient: "))
-        elif mode == "u":
-            units.append(input("Please enter the unit: "))
-        else:
+        new_ingredient = input("Enter an ingredient, or press Q to quit: ").lower().strip()
+        if new_ingredient == "q":
             break
+        else:
+            ingredients.append(new_ingredient)
+            units.append(input("Enter the unit for the ingredient: "))
 
 #main routine
 
@@ -22,7 +21,7 @@ amounts = [1, 2, 0.5, 1, 1, 30]
 new_amounts = []
 old_servings = 3
 
-input_menu()
+recipe_input()
 
 #input - servings amount
 print("The current recipe serves {} people.".format(old_servings))
