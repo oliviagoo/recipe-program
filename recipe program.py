@@ -1,6 +1,6 @@
 #recipe alteration program
 #olivia goodman 3/6/20
-#version 4 - this version will replace the hard-coded ingredients and units, with a better input method
+#version 5 - this version will replace the hard-coded amounts and old serving amount
 
 def recipe_input():
     while True:
@@ -10,18 +10,20 @@ def recipe_input():
         else:
             ingredients.append(new_ingredient)
             units.append(input("Enter the unit for the ingredient: "))
+            amounts.append(float(input("How much of that unit is needed? ")))
+    old_servings = int(input("How many people does the recipe serve currently? "))
+    return old_servings
 
 #main routine
 
 #hard coded recipe
-print("Pancake recipe courtesy of Chelsea Sugar (https://www.chelsea.co.nz/browse-recipes/sunday-pancake-recipe/)")
+#print("Pancake recipe courtesy of Chelsea Sugar (https://www.chelsea.co.nz/browse-recipes/sunday-pancake-recipe/)")
 ingredients = []
 units = []
-amounts = [1, 2, 0.5, 1, 1, 30]
+amounts = []
 new_amounts = []
-old_servings = 3
+old_servings = recipe_input()
 
-recipe_input()
 
 #input - servings amount
 print("The current recipe serves {} people.".format(old_servings))
