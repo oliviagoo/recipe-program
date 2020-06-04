@@ -1,6 +1,6 @@
 #recipe alteration program
 #olivia goodman 3/6/20
-#version 6 - this version will focus on boundary error handling
+#version 7 - this version will focus on exceptional error handling
 
 #this function gets the user input for the original recipe
 def recipe_input():
@@ -11,9 +11,29 @@ def recipe_input():
         else:
             ingredients.append(new_ingredient)
             units.append(input("Enter the unit for the ingredient: "))
-            amounts.append(float(input("How much of that unit is needed? ")))
-    old_servings = int(input("How many people does the recipe serve currently? "))
+            amounts.append(force_num("How much of that unit is needed? "))
+    old_servings = force_int("How many people does the recipe serve currently? ")
     return old_servings
+
+#this funtion will force the user to enter an integer
+def force_int(msg):
+    while True:
+        try:
+            value = int(input(msg))
+            break
+        except ValueError:
+            print("Please enter a valid whole number!")
+    return value
+
+#this funtion will force the user to enter a float OR int
+def force_num(msg):
+    while True:
+        try:
+            value = float(input(msg))
+            break
+        except ValueError:
+            print("Please enter a valid number!")
+    return value
 
 #main routine
 
@@ -27,10 +47,10 @@ old_servings = recipe_input()
 
 #input - how many people the recipe should serve
 while True:
-    new_servings = int(input("How many people should the recipe serve? "))
+    new_servings = force_int("How many people should the recipe serve? ")
     #calculating scale factor
     scale_factor = new_servings / old_servings
-    print(scale_factor)
+    #print(scale_factor)
     if scale_factor > 3:
         print("The ingredients won't fit in the bowl! Please make a smaller batch.")
     elif scale_factor < 0.25:
