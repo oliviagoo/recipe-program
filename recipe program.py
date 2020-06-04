@@ -1,6 +1,6 @@
 #recipe alteration program
-#olivia goodman 3/6/20
-#version 7 - this version will focus on exceptional error handling
+#olivia goodman 4/6/20
+#version 8 - this version will focus on clean-up, for usability and ease of reading the code
 
 #this function gets the user input for the original recipe
 def recipe_input():
@@ -36,35 +36,41 @@ def force_num(msg):
     return value
 
 #main routine
-
-#print("Pancake recipe courtesy of Chelsea Sugar (https://www.chelsea.co.nz/browse-recipes/sunday-pancake-recipe/)")
 #setting up the necessary empty lists
 ingredients = []
 units = []
 amounts = []
 new_amounts = []
-old_servings = recipe_input()
 
-#input - how many people the recipe should serve
+#welcome message, with basic instructions for the user
+print("Welcome to the recipe modification program!")
+print("""This program will take a recipe which serves a certain amount of people, and modify it to serve a new number.
+The program will guide you through the process of entering the recipe, the serving amounts, and output a new recipe for you.
+All input should be singular (e.g. egg, cup, gram). If a unit is not relevant, write n/a.
+""")
+
+#input - the recipe and how many people it should serve
+old_servings = recipe_input()
 while True:
     new_servings = force_int("How many people should the recipe serve? ")
     #calculating scale factor
     scale_factor = new_servings / old_servings
-    #print(scale_factor)
     if scale_factor > 3:
         print("The ingredients won't fit in the bowl! Please make a smaller batch.")
     elif scale_factor < 0.25:
         print("Your recipe is too small! Make a larger batch and freeze the leftovers.")
     else:
         break
-    
 
 #altering the amounts in the recipe
 for value in amounts:
     new_amounts.append(value * scale_factor)
 
 #outputting new recipe
+print()
 print("This recipe now serves {} people.".format(new_servings))
 for i in range(len(ingredients)):
-    print("{:.2f} {}s of {}".format(new_amounts[i], units[i], ingredients[i]))
-
+    if units[i] != "n/a":
+        print("{:.2f} {}s of {}".format(new_amounts[i], units[i], ingredients[i]))
+    else:
+        print("{:.2f} {}s".format(new_amounts[i], ingredients[i]))
